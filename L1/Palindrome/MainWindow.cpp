@@ -23,13 +23,20 @@ MainWindow::MainWindow(QWidget *parent)
                 if(file.open(QIODevice::ReadOnly))
                 {
                     nonPalindromes->clear();
+                    palindromes->clear();
 
                     QTextStream stream{&file};
                     while(!stream.atEnd())
                     {
                         QString word;
                         stream >> word;
-                        nonPalindromes->addItem(word);
+                        QString revers_word = word;
+                        std::reverse(revers_word.begin(),revers_word.end());
+                        if (word == revers_word) {
+                          palindromes->addItem(word);
+                        } else {
+                          nonPalindromes->addItem(word);
+                        }
                     }
                 }
             }
